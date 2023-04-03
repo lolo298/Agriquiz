@@ -9,6 +9,7 @@ main {
   justify-content: space-around;
   height: 100%;
   padding: 0 1.5em;
+  gap: 50px;
 }
 
 .reponses {
@@ -39,8 +40,7 @@ main {
 }
 
 .btnMain {
-  width: 15%;
-  padding: 2%;
+  width: max-content;
   font-size: 1.5em;
 }
 
@@ -54,6 +54,7 @@ main {
   display: none;
   justify-content: center;
   align-items: center;
+  color: #000;
   /* transform: translate(-50%, 50%); */
 }
 
@@ -67,8 +68,26 @@ main {
   background-color: #fff;
   border-radius: 20px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: space-around;
   align-items: center;
   padding: 2%;
+}
+
+.popupTexts {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 50%;
+  gap: 2%
+}
+
+#chartContainer {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

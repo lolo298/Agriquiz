@@ -4,9 +4,9 @@ import Chart from "chart.js/auto";
 
 const infos = document.querySelector("#infos") as HTMLDivElement;
 
-const ctx = document.querySelector("#myChart") as HTMLCanvasElement;
+const canvas = document.querySelector("#myChart") as HTMLCanvasElement;
 
-const myChart = new Chart(ctx, {
+const myChart = new Chart(canvas, {
   type: "doughnut",
   data: {
     datasets: [
