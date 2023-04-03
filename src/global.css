@@ -1,0 +1,70 @@
+:root {
+  --background-color: #001220;
+  --background-fake: #428F27;
+  --card-color: #001F37;
+  --card-selected: #0060AA;
+
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: var(--background-color);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+* {
+  font-family: Rubik, sans-serif;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+#app {
+  height: 100vh;
+  width: 100%;
+}
+
+.btnMain {
+  width: 50%;
+  border-radius: 50px;
+  border: 2px solid #fff;
+  font-size: 2.5em;
+  background-color: transparent;
+  padding: 5%;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.btn {
+  border: 2px solid #fff;
+  background-color: transparent;
+  padding: 5%;
+  cursor: pointer;
+  transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.btn:hover {
+  background-color: #fff;
+  color: #000 !important;
+}

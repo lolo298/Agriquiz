@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <title>Vite + TS</title>
+  </head>
+  <body>
+    <div id="app">
+      <main>
+        <header class="center">
+          <p>Question x / 5</p>
+          <h2 class="question">Ma superbe question</h2>
+        </header>
+        <div class="reponses">
+          <div class="card center" data-index="0">
+            <p class="reponseId">Réponse X</p>
+            <p class="reponseText">6.013 kg CO2 eq/kg</p>
+          </div>
+          <div class="card center" data-index="1">
+            <p class="reponseId">Réponse X</p>
+            <p class="reponseText">6.013 kg CO2 eq/kg</p>
+          </div>
+          <div class="card center" data-index="2">
+            <p class="reponseId">Réponse X</p>
+            <p class="reponseText">6.013 kg CO2 eq/kg</p>
+          </div>
+        </div>
+        <button class="btn btnMain" id="valider">Valider</button>
+      </main>
+      <div id="popup">
+        <div class="popupContent">
+          <h2>Bravo !</h2>
+          <p>Vous avez répondu à 5 questions</p>
+          <p>Vous avez gagné 5 points</p>
+          <button class="btn btnMain">Continuer</button>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/src/start.ts"></script>
+  </body>
+</html>

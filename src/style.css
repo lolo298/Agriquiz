@@ -1,0 +1,74 @@
+body {
+  background-color: var(--background-fake);
+  background-image: url("/waves.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  padding: 0 1.5em;
+}
+
+.quizStart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.quizStart a {
+  text-decoration: none;
+  text-align: center;
+  color: #fff;
+}
+
+.quizStart a:visited {
+  color: #fff;
+}
+
+
+.nextInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 3%;
+}
+
+#infos {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#chartContainer {
+  height: 60%;
+  width: 50%;
+  margin-bottom: 5%;
+}
+
+#filter {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 1fr 1fr;
+  gap: 1em;
+  width: 50%;
+}
+
+.btnFilter {
+  border-radius: 10px;
+  font-size: 1.5em;
+}
+
+
+.btnFilter {
+  border-radius: 10px;
+  font-size: 1.5em;
+}

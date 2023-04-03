@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <title>Vite + TS</title>
+  </head>
+  <body>
+    <div id="app">
+      <main>
+        <div class="quizStart">
+          <h1>Agriquiz</h1>
+          <p>Vous voulez tester vos connaissances</p>
+          <a class="btn btnMain" href="start.html">Quiz</a>
+        </div>
+        <div class="nextInfo">
+          <p>Ou juste voir les informations</p>
+          <!-- fontawesome down arrow-->
+          <i class="fas fa-arrow-down"></i>
+        </div>
+      </main>
+      <div id="infos">
+        <div id="chartContainer">
+          <canvas id="myChart"></canvas>
+        </div>
+        <div id="filter">
+          <button class="btn btnFilter">Blé</button>
+          <button class="btn btnFilter">Colza</button>
+          <button class="btn btnFilter">Fruits</button>
+          <button class="btn btnFilter">Légumes</button>
+          <button class="btn btnFilter">Riz</button>
+          <button class="btn btnFilter">Lait</button>
+          <button class="btn btnFilter">Oeufs</button>
+          <button class="btn btnFilter">Viande</button>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/src/index.ts"></script>
+  </body>
+</html>
