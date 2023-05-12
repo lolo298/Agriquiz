@@ -102,3 +102,63 @@ function loadChart() {
   };
   const myChart = new Chart(canva, config);
 }
+
+import { db } from "./firebase";
+import { ref, set, get, child, onValue } from "firebase/database";
+
+interface Data {
+  [key: string]: {
+    data: string;
+    possible: string[];
+    res: number;
+  };
+}
+
+async function loadQuestions() {
+  const dbRef = ref(db, "saeweb4/");
+  const questionsRef = child(dbRef, "questions");
+
+  const snapshot = await get(questionsRef);
+  if (snapshot.exists()) {
+    const cards = document.querySelectorAll(".card");
+    const data = snapshot.val() as Data;
+    const current = findGetParameter("question");
+    const currentQuestion = current ? parseInt(current) : 1;
+
+    const question = data[`question${currentQuestion}`];
+    console.log(question);
+    const questionText = document.querySelector(".question") as HTMLHeadingElement;
+    questionText.innerHTML = question.data;
+
+    for (const card of cards) {
+      const resTxt = card.querySelector(".reponseText") as HTMLParagraphElement;
+      const cardId = card.getAttribute("data-index");
+      console.log(cardId);
+      if (cardId === null) continue;
+      resTxt.textContent = question.possible[parseInt(cardId) + 1];
+    }
+
+    for (const [iStr, question] of Object.entries(data)) {
+      const i = parseInt(iStr.replace("question", ""));
+      const card = document.querySelector(`[data-index="${i - 1}"]`);
+      if (!(card instanceof HTMLDivElement)) continue;
+    }
+  } else {
+    console.log("No data available");
+  }
+}
+
+loadQuestions();
+
+function findGetParameter(parameterName: string) {
+  var result = null,
+    tmp = [];
+  location.search
+    .substr(1)
+    .split("&")
+    .forEach(function (item) {
+      tmp = item.split("=");
+      if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
+    });
+  return result;
+}
