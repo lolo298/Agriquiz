@@ -1,0 +1,23 @@
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  height: 100%;
+  padding: 0 1.5em;
+  gap: 50px;
+}
+
+.btnContainer{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 50%;
+  gap: 5%;
+}
+
+.btnMain {
+  padding: 0.5em 1em;
+  font-size: 1.5em;
+}
