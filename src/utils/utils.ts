@@ -1,9 +1,13 @@
 import { DatabaseReference } from "@firebase/database";
 import * as d3 from "d3";
 
-export async function loadTsv() {
-  if (!window.tsv) {
-    let res = await fetch(`/AGRIBALYSE3.1_bio_simplifie.tsv`);
+export async function loadTsv(type = "bio") {
+  if (!window.tsv || type === "conv") {
+    let res = await fetch(
+      type === "bio"
+        ? "/AGRIBALYSE3.1_bio_simplifie.tsv"
+        : "/AGRIBALYSE3.1_conv_simplifie.tsv"
+    );
     let data = await res.text();
     var tsv = d3.tsvParse(data);
     window.tsv = tsv;
@@ -22,7 +26,6 @@ export async function loadData(type: string): Promise<DataChart[] | undefined> {
   } else {
     types = [type];
   }
-  console.log("types: ", types);
   let tsv = await loadTsv();
 
   let filteredData = tsv.filter((d) => {
@@ -31,16 +34,17 @@ export async function loadData(type: string): Promise<DataChart[] | undefined> {
     let test = types.some((t) => testType(name, t));
     return test;
   });
-  let returnData = filteredData.map((d) => {
+  let returnData = filteredData.map((d, i) => {
     let name =
       d[
         "Nom du Produit en Français (traduction approximative GoogleTranslate)"
       ];
     let val = d["Changement climatique"];
     let value = val != undefined ? parseFloat(val.replace(",", ".")) : 0;
-    if (!val || !name) return { key: "", value: 0 };
+    if (!val || !name) return { key: "", id: i, value: 0 };
     return {
       key: name,
+      id: i,
       value: value,
     };
   });

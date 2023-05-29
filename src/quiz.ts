@@ -1,5 +1,5 @@
 import "./css/global.css";
-import "./css/start.css";
+import "./css/quiz.css";
 import Chart from "chart.js/auto";
 import { db } from "./utils/firebase";
 import { ref } from "firebase/database";
@@ -22,7 +22,7 @@ if (currentId) {
     if (parseInt(currentId) + 1 > 3) {
       window.location.href = `results.html`;
     } else {
-      window.location.href = `start.html?q=${parseInt(currentId) + 1}`;
+      window.location.href = `quiz.html?q=${parseInt(currentId) + 1}`;
     }
   };
 }
@@ -134,14 +134,15 @@ function showPopup() {
 }
 
 async function loadChart() {
-  const tsv = await loadTsv();
+  const tsvBio = await loadTsv();
+  const tsvConv = await loadTsv("conv");
 
   const param = findGetParameter("q");
   if (!param) return;
-  let filteredData;
+  let fullData: any[] = [];
   switch (param) {
     case "1":
-      filteredData = tsv.filter((data) => {
+      fullData = tsvBio.filter((data) => {
         const name =
           data[
             "Nom du Produit en Français (traduction approximative GoogleTranslate)"
@@ -150,26 +151,113 @@ async function loadChart() {
         return testType(name, ["Tomate", "Noix", "Colza"]);
       });
       break;
+    case "2":
+      let types = ["Tomate", "Porc", "Colza", "Oeuf", "Blé"];
+      fullData = [];
+      for (let type of types) {
+        let filteredData = tsvBio.filter((data) => {
+          const name =
+            data[
+              "Nom du Produit en Français (traduction approximative GoogleTranslate)"
+            ];
+          if (!name) return false;
+          return testType(name, type);
+        });
+        let returnData = filteredData.reduce((acc, d, i) => {
+          let name = type;
+          let value = d["Changement climatique"];
+          if (!value || !name) return acc;
+          let index = acc.findIndex((a) => a.key === name);
+          if (index === -1) {
+            acc.push({
+              "Nom du Produit en Français (traduction approximative GoogleTranslate)":
+                name,
+              "Changement climatique": value,
+            });
+          } else {
+            acc[index].value += value;
+          }
+          return acc;
+        }, [] as any[]);
+        fullData = [...fullData, ...returnData];
+      }
+      console.log("fullData", fullData);
+      break;
+    case "3": {
+      let filteredBio = tsvBio.filter((data) => {
+        const name =
+          data[
+            "Nom du Produit en Français (traduction approximative GoogleTranslate)"
+          ];
+        if (!name) return false;
+        return testType(name, "Melon");
+      });
+
+      let filteredConv = tsvConv.filter((data) => {
+        const name =
+          data[
+            "Nom du Produit en Français (traduction approximative GoogleTranslate)"
+          ];
+        if (!name) return false;
+        return testType(name, "Melon");
+      });
+
+      let returnedBio = filteredBio.reduce((acc, d, i) => {
+        let name = "Melon Bio";
+        let value = d["Changement climatique"];
+        if (!value || !name) return acc;
+        let index = acc.findIndex((a) => a.key === name);
+        if (index === -1) {
+          acc.push({
+            "Nom du Produit en Français (traduction approximative GoogleTranslate)":
+              name,
+            "Changement climatique": value,
+          });
+        } else {
+          acc[index].value += value;
+        }
+        return acc;
+      }, [] as any[]);
+
+      let returnedConv = filteredConv.reduce((acc, d, i) => {
+        let name = "Melon Conventionnel";
+        let value = d["Changement climatique"];
+        if (!value || !name) return acc;
+        let index = acc.findIndex((a) => a.key === name);
+        if (index === -1) {
+          acc.push({
+            "Nom du Produit en Français (traduction approximative GoogleTranslate)":
+              name,
+            "Changement climatique": value,
+          });
+        } else {
+          acc[index].value += value;
+        }
+        return acc;
+      }, [] as any[]);
+
+      fullData = [...returnedBio, ...returnedConv];
+      break;
+    }
   }
 
   const dataChartKeys: string[] = [];
   const dataChartValues: number[] = [];
-  filteredData!.forEach((data) => {
+  fullData!.forEach((data) => {
     const name =
       data[
         "Nom du Produit en Français (traduction approximative GoogleTranslate)"
       ];
-    let val: string | number | undefined = data["Changement climatique"];
+    let val: string | undefined = data["Changement climatique"];
     if (!val) return;
-    val = parseFloat(val.replace(",", "."));
+    let value = parseFloat(val.replace(",", "."));
     if (!name) return;
     const index = dataChartKeys.indexOf(name);
     if (index === -1) {
       dataChartKeys.push(name.split(",")[0]);
-      dataChartValues.push(val);
+      dataChartValues.push(value);
     }
   });
-  console.log(dataChartKeys, dataChartValues);
 
   const canva = document.querySelector("#myChart") as HTMLCanvasElement;
 
@@ -179,7 +267,7 @@ async function loadChart() {
       labels: [...dataChartKeys],
       datasets: [
         {
-          label: "Nombre de réponses",
+          label: "Changement climatique",
           data: [...dataChartValues],
           backgroundColor: [
             "rgb(255, 99, 132)",

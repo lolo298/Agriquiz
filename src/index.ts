@@ -33,23 +33,12 @@ function loadChart(data: DataChart[]) {
 
   const arc = d3.arc().innerRadius(0).outerRadius(radius);
   const arcGenerator = d3.arc().innerRadius(0).outerRadius(radius);
-  const chartData = chart.selectAll("path").data(data_ready, (d: any) => d.id);
+  const chartData = chart
+    .selectAll("path")
+    .data(data_ready, (d: any) => d.id) as any;
 
   //remove the paths that are not in the new dataset
-  chartData
-    .exit()
-    .transition()
-    .duration(500)
-    .ease(d3.easeLinear)
-    .attrTween("d", function (d: any, i): any {
-      //interpolate from the end to the start
-      var interpolate = d3.interpolate(d.startAngle, d.endAngle);
-      return function (t) {
-        d.endAngle = interpolate(t);
-        return arcGenerator(d);
-      };
-    })
-    .remove();
+  chartData.exit().remove();
 
   const chartPaths = chartData
     .enter()
@@ -112,19 +101,6 @@ function loadChart(data: DataChart[]) {
     .attr("fill", "var(--background-fake)")
     .attr("stroke", "white")
     .style("stroke-width", "2px");
-
-  chartData
-    .exit()
-    .transition()
-    .duration(500)
-    .ease(d3.easeLinear)
-    .attrTween("d", function (d: any, i): any {
-      const interpolate = d3.interpolate(d.endAngle, d.startAngle);
-      return function (t: any) {
-        return arc(interpolate(t));
-      };
-    })
-    .remove();
 }
 
 document.querySelectorAll(".btnFilter").forEach((btn) => {

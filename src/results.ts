@@ -43,5 +43,5 @@ function handleGoBack() {
 
 function handleRetry() {
   localStorage.setItem("results", JSON.stringify({ good: 0, bad: 0 }));
-  window.location.href = "/start.html?q=1";
+  window.location.href = "/quiz.html?q=1";
 }
